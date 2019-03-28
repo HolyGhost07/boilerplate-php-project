@@ -1,0 +1,4 @@
+app/vendor
+app/frontend.conf
+mariadb/var/lib/mysql
+.idea

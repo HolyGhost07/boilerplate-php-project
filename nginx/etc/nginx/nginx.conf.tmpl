@@ -1,0 +1,20 @@
+user  nginx;
+worker_processes  1;
+
+pid        /var/run/nginx.pid;
+
+daemon off;
+
+events {
+    use epoll;
+    worker_connections  1024;
+}
+
+http {
+    include         mime.types;
+    default_type    application/octet-stream;
+
+    include         conf.d/*-http-*.conf;
+    
+    include {{ .Env.PROJECT_DIR }}/*.conf;
+}

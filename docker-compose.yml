@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: ./nginx/Dockerfile
+            args:
+                SRC_DIR_APP: ${SRC_DIR_APP}
+                PROJECT_DIR: ${PROJECT_DIR}
+                VERSION: ${VERSION}
+        ports:
+            - "${NGINX_PORT}:80"
+        volumes:
+            - "./${SRC_DIR_APP}:${PROJECT_DIR}"
+        env_file:
+            - .env
+        depends_on:
+            - php-fpm
+    php-fpm:
+        build:
+            context: .
+            dockerfile: ./php-fpm/Dockerfile
+            args:
+                SRC_DIR_APP: ${SRC_DIR_APP}
+                PROJECT_DIR: ${PROJECT_DIR}
+        volumes:
+            - "./${SRC_DIR_APP}:${PROJECT_DIR}"
+        env_file:
+            - .env
+    mariadb:
+        image: mariadb:latest
+        volumes:
+            - ./mariadb/etc/mysql/conf.d:/etc/mysql/conf.d
+            - ./mariadb/var/lib/mysql:/var/lib/mysql
+        env_file:
+            - .env
