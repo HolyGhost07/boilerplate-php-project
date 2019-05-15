@@ -2,7 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-define('ROOT_PATH', __DIR__);
+define('ROOT_PATH', dirname(__DIR__));
 
 if (!file_exists($file = ROOT_PATH . '/vendor/autoload.php')) {
     throw new RuntimeException('Install dependencies to run this script.');
