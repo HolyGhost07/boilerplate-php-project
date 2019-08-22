@@ -33,5 +33,6 @@ services:
         volumes:
             - ./mariadb/etc/mysql/conf.d:/etc/mysql/conf.d
             - ./mariadb/var/lib/mysql:/var/lib/mysql
+            - ./mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
         env_file:
             - .env
